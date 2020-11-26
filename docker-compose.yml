@@ -1,0 +1,20 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12.1
+    volumes:
+      - ./.docker/db/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  gold:
+    build:
+      context: './'
+      dockerfile: 'Dockerfile.dev'
+    env_file:
+      - env/dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./src:/app/src
+      - ./target:/app/target
+      - ./.docker/m2:/root/.m2

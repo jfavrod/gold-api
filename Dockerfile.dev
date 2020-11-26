@@ -1,0 +1,8 @@
+FROM openjdk:14-alpine
+RUN apk add --no-cache maven
+EXPOSE 8080
+RUN mkdir -p /app/src /app/target
+WORKDIR /app
+COPY pom.xml /app/pom.xml
+RUN mvn compile
+CMD [ "mvn", "spring-boot:run" ]
